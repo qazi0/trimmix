@@ -26,7 +26,7 @@ Bind it to a GNOME keyboard shortcut and it pastes the cleaned command into the 
 ## Install (Ubuntu 22.04+)
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/qazi0/trimmix/master/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/qazi0/trimmix/main/install.sh | bash
 ```
 
 The installer will:
@@ -69,12 +69,12 @@ printf 'kubectl get pods\n  --namespace prod\n  -o wide' | trimmix -
 
 ### GNOME keyboard shortcuts
 
-Settings, Keyboard, View and Customize Shortcuts, Custom Shortcuts. Add two shortcuts so one works in terminals and the other in editors and browsers:
+Open `Settings > Keyboard > View and Customize Shortcuts > Custom Shortcuts` and add two shortcuts so one works in terminals and the other in editors and browsers:
 
 | Key combo | Command | Target |
 |---|---|---|
-| e.g. `Ctrl+Alt+T` | `/home/<user>/.local/bin/trimmix --paste --terminal --quiet` | Terminals |
-| e.g. `Ctrl+Alt+V` | `/home/<user>/.local/bin/trimmix --paste --quiet` | Editors, browsers, Slack, etc. |
+| `Alt+Shift+T` | `/home/<user>/.local/bin/trimmix --paste --terminal --quiet` | Terminals |
+| `Alt+Shift+V` | `/home/<user>/.local/bin/trimmix --paste --quiet` | Editors, browsers, Slack, etc. |
 
 Avoid `Ctrl+V` or `Ctrl+Shift+V` for the shortcut combo itself, or the synthetic keypress that trimmix injects can re-trigger the shortcut.
 
