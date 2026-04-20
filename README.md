@@ -26,7 +26,7 @@ Bind it to a GNOME keyboard shortcut and it pastes the cleaned command into the 
 ## Install (Ubuntu 22.04+)
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/<user>/trimmix/master/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/qazi0/trimmix/master/install.sh | bash
 ```
 
 The installer will:

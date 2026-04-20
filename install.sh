@@ -2,14 +2,14 @@
 # trimmix installer for Ubuntu 22.04+
 #
 # Usage:
-#   curl -fsSL https://raw.githubusercontent.com/<user>/trimmix/master/install.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/qazi0/trimmix/master/install.sh | bash
 #
 # Environment overrides:
-#   TRIMMIX_REPO  : git URL to clone from (default: GitHub siraj/trimmix)
+#   TRIMMIX_REPO  : git URL to clone from (default: GitHub qazi0/trimmix)
 #   TRIMMIX_REF   : branch or tag to install (default: master)
 set -euo pipefail
 
-REPO="${TRIMMIX_REPO:-https://github.com/siraj/trimmix.git}"
+REPO="${TRIMMIX_REPO:-https://github.com/qazi0/trimmix.git}"
 REF="${TRIMMIX_REF:-master}"
 DIR="$HOME/.local/share/trimmix"
 BIN="$HOME/.local/bin/trimmix"

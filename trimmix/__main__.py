@@ -24,7 +24,6 @@ def main() -> int:
     parser.add_argument("--force", "-f", action="store_true", help="Force high aggressiveness")
     parser.add_argument("--paste", "-p", action="store_true", help="Simulate Ctrl+V paste after transforming")
     parser.add_argument("--terminal", "-t", action="store_true", help="Use Ctrl+Shift+V for pasting (for terminals)")
-    parser.add_argument("--daemon", action="store_true", help="Run in daemon mode (watch clipboard)")
     parser.add_argument("--quiet", "-q", action="store_true", help="Suppress output")
     parser.add_argument(
         "input", nargs="?", type=argparse.FileType("r"), default=None,
@@ -33,11 +32,6 @@ def main() -> int:
 
     args = parser.parse_args()
     aggressiveness = Aggressiveness.HIGH if args.force else Aggressiveness[args.aggressiveness.upper()]
-
-    if args.daemon:
-        from trimmix.daemon import Daemon
-        daemon = Daemon(aggressiveness=aggressiveness, preserve_blank_lines=args.preserve_blank_lines)
-        return daemon.run()
 
     if args.input:
         text = args.input.read()

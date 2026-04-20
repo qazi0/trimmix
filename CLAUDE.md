@@ -17,9 +17,6 @@ trimmix
 
 # From stdin
 echo "cmd \\\n  --flag" | trimmix -
-
-# Daemon mode
-trimmix --daemon
 ```
 
 ## Testing

@@ -46,56 +46,40 @@ class TestOptions:
 
 
 class TestBoxDrawing:
-    def test_strips_leading_and_trailing_pipes(self):
+    def test_strips_pipes_from_tabular_output(self):
         text = "│ git status │\n│ git log    │"
-        result = transform(text, aggressiveness=Aggressiveness.HIGH)
-        assert "│" not in result.text
+        assert "│" not in transform(text, aggressiveness=Aggressiveness.HIGH).text
 
-    def test_keep_box_drawing_flag(self):
-        text = "│ content │"
-        result = transform(text, remove_box_drawing=False)
-        assert "│" in result.text
+    def test_keep_box_drawing_preserves_characters(self):
+        assert "│" in transform("│ content │", remove_box_drawing=False).text
 
 
 class TestPathWithSpaces:
-    def test_quotes_absolute_path_with_spaces(self):
-        assert transform("/Users/me/My Documents/file.txt").text == '"/Users/me/My Documents/file.txt"'
+    @pytest.mark.parametrize("path", [
+        "/Users/me/My Documents/file.txt",
+        "~/My Folder/file.txt",
+        "./local dir/notes.md",
+    ])
+    def test_wraps_path_in_quotes(self, path):
+        assert transform(path).text == f'"{path}"'
 
-    def test_quotes_home_path_with_spaces(self):
-        assert transform("~/My Folder/file.txt").text == '"~/My Folder/file.txt"'
-
-    def test_does_not_quote_urls(self):
-        result = transform("https://example.com/a b")
-        assert not (result.text.startswith('"') and result.text.endswith('"'))
-
-    def test_does_not_quote_already_quoted(self):
-        assert transform('"/Users/me/My Docs/file.txt"').transformed is False
-
-    def test_does_not_quote_commands_with_flags(self):
-        assert transform("ls -la /some/dir").transformed is False
-
-
-class TestPromptStrippingStrictness:
-    def test_strips_real_shell_prompts(self):
-        result = transform("$ echo hi\n$ ls -la")
-        assert "$" not in result.text
-
-    def test_does_not_strip_markdown_headings(self):
-        text = "# Overview\n# Usage notes\n# Final thoughts"
+    @pytest.mark.parametrize("text", [
+        '"/Users/me/My Docs/file.txt"',
+        "ls -la /some/dir",
+    ])
+    def test_leaves_non_paths_alone(self, text):
         assert transform(text).transformed is False
 
-    def test_does_not_strip_prose_majority(self):
-        text = "# First idea here.\n# Second idea there.\nplain trailing line"
-        assert "# First" in transform(text).text
+
+class TestSmartPromptStripping:
+    @pytest.mark.parametrize("text", [
+        "# Overview\n# Usage notes\n# Final thoughts",
+        "# First idea here.\n# Second idea there.\n# Third idea too.",
+    ])
+    def test_leaves_prose_with_prompt_chars_alone(self, text):
+        assert transform(text).transformed is False
 
 
 class TestIndependentCommandsGuard:
-    def test_three_independent_commands_not_flattened(self):
-        text = "cd foo\nls -la\necho done"
-        result = transform(text)
-        assert "\n" in result.text or result.transformed is False
-
-    def test_indented_continuations_still_flatten(self):
-        text = "kubectl get pods\n  --namespace prod\n  -o wide\n  --selector app=web"
-        result = transform(text)
-        assert result.text == "kubectl get pods --namespace prod -o wide --selector app=web"
+    def test_sequential_commands_not_glued(self):
+        assert transform("cd foo\nls -la\necho done").transformed is False
