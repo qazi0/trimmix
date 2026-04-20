@@ -73,8 +73,10 @@ Open `Settings > Keyboard > View and Customize Shortcuts > Custom Shortcuts` and
 
 | Key combo | Command | Target |
 |---|---|---|
-| `Alt+Shift+T` | `/home/<user>/.local/bin/trimmix --paste --terminal --quiet` | Terminals |
-| `Alt+Shift+V` | `/home/<user>/.local/bin/trimmix --paste --quiet` | Editors, browsers, Slack, etc. |
+| `Alt+Shift+T` | `trimmix --paste --terminal --quiet` | Terminals |
+| `Alt+Shift+V` | `trimmix --paste --quiet` | Editors, browsers, Slack, etc. |
+
+If the shortcut does nothing when pressed, `~/.local/bin` may not be on the PATH that GNOME passes to custom shortcuts. Either log out and back in so the systemd user session picks up `~/.profile`, or use the full path in the command: `/home/<user>/.local/bin/trimmix --paste ...`.
 
 Avoid `Ctrl+V` or `Ctrl+Shift+V` for the shortcut combo itself, or the synthetic keypress that trimmix injects can re-trigger the shortcut.
 
