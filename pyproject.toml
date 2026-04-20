@@ -3,7 +3,7 @@ name = "trimmix"
 version = "0.1.0"
 description = "Convert multiline shell commands to single-line (Linux clipboard tool)"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.10"
 dependencies = []
 
 [project.scripts]

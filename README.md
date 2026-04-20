@@ -2,7 +2,7 @@
 
 Flatten multi-line shell commands copied to your clipboard so they paste and run as a single line on Linux.
 
-Inspired by and a faithful Python port of [Peter Steinberger's Trimmy](https://github.com/steipete/Trimmy) for macOS. No Swift runtime required; pure Python 3.11+, no runtime dependencies.
+Inspired by and a faithful Python port of [Peter Steinberger's Trimmy](https://github.com/steipete/Trimmy) for macOS. No Swift runtime required; pure Python 3.10+, no runtime dependencies.
 
 ## Why
 
@@ -31,7 +31,7 @@ curl -fsSL https://raw.githubusercontent.com/qazi0/trimmix/main/install.sh | bas
 
 The installer will:
 
-1. `sudo apt install` the runtime dependencies (`git`, `python3.11`, `python3.11-venv`, `wl-clipboard`, `ydotool`, `ydotoold`).
+1. `sudo apt install` the runtime dependencies (`git`, `python3`, `python3-venv`, `wl-clipboard`, `ydotool`, `ydotoold`).
 2. Clone trimmix into `~/.local/share/trimmix` and create a venv there.
 3. Symlink the binary at `~/.local/bin/trimmix`.
 4. Install and enable a user-level systemd service for `ydotoold` (needed for autopaste into Wayland apps).
@@ -105,7 +105,7 @@ Known divergences from Trimmy (intentional):
 
 ## Requirements
 
-- Ubuntu 22.04+ (or equivalent with Python 3.11, systemd, Wayland or X11).
+- Ubuntu 22.04+ (Python 3.10 on 22.04, 3.12 on 24.04; anything 3.10+ works), systemd, Wayland or X11.
 - GNOME on Wayland is the primary target. X11 sessions and other Wayland compositors also work as long as the corresponding input-injection tool is available.
 
 ### Why ydotool and not wtype or xdotool
@@ -118,7 +118,7 @@ Known divergences from Trimmy (intentional):
 
 ```bash
 uv sync
-PYTHONNOUSERSITE=1 uv run --python 3.11 pytest tests/ -p no:cacheprovider
+PYTHONNOUSERSITE=1 uv run pytest tests/ -p no:cacheprovider
 ```
 
 `PYTHONNOUSERSITE=1` is required because ROS system Python packages register a broken pytest plugin on some distros.

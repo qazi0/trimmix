@@ -22,14 +22,14 @@ echo "cmd \\\n  --flag" | trimmix -
 ## Testing
 
 ```bash
-PYTHONNOUSERSITE=1 uv run --python 3.11 pytest tests/ -v -p no:cacheprovider
+PYTHONNOUSERSITE=1 uv run pytest tests/ -v -p no:cacheprovider
 ```
 
 Note: ROS packages on this system interfere with pytest. Always use `PYTHONNOUSERSITE=1`.
 
 ## Conventions
 
-- Python 3.11+, no external runtime dependencies
+- Python 3.10+, no external runtime dependencies
 - `uv` for package management
 - No `from __future__ import annotations`
 - No empty exception handlers (`except: pass`)

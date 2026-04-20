@@ -20,8 +20,8 @@ say "Installing apt dependencies (requires sudo)"
 sudo apt-get update -qq
 sudo apt-get install -y -qq \
     git \
-    python3.11 \
-    python3.11-venv \
+    python3 \
+    python3-venv \
     wl-clipboard \
     ydotool \
     ydotoold
@@ -37,7 +37,7 @@ fi
 
 say "Creating virtualenv"
 rm -rf "$DIR/.venv"
-python3.11 -m venv "$DIR/.venv"
+python3 -m venv "$DIR/.venv"
 "$DIR/.venv/bin/pip" install --quiet --upgrade pip
 "$DIR/.venv/bin/pip" install --quiet "$DIR"
 ln -sf "$DIR/.venv/bin/trimmix" "$BIN"
