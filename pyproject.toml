@@ -1,0 +1,20 @@
+[project]
+name = "trimmix"
+version = "0.1.0"
+description = "Convert multiline shell commands to single-line (Linux clipboard tool)"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.scripts]
+trimmix = "trimmix.__main__:main"
+
+[dependency-groups]
+dev = ["pytest>=8.0"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
